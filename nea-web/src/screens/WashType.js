@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import { ADD_PRICETEMP, ADD_SUBSCRIPTION_TO_CARWASH, ADD_TYPE_TO_CARWASH } from '../actions/types';
 import {Link, withRouter} from 'react-router-dom';
 import {Button} from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import Header from "../components/Header";
 
 
 class WashType extends React.Component {
@@ -182,12 +184,13 @@ class WashType extends React.Component {
     console.log(this.props.carwash.currentCarwash.car.car.size)
     return (
       <div >
+        <Header/>
         <div
         >
-        <div style={{textAlign: 'center'}}>
+        <div style={{textAlign: 'center', width: '100%', display: 'inline-block', backgroundColor: '#F0F0F0', height: 1000, padding: '5%'}}>
 
-            <div style={styles.cardblock}>
-              <div h3 style={{color: '#286AEC', marginTop: 20, shadowColor:'white'}}>Express</div>
+            <Card style={styles.cardblock}>
+              <h2 style={{color: '#286AEC', marginTop: 20, shadowColor:'white'}}>Express</h2>
               <div
                 style={{
                   width: 200,
@@ -198,23 +201,23 @@ class WashType extends React.Component {
               />
                 {this.props.carwash.currentCarwash.car.car.size == 'chico' && 
                  <div>
-                    <div h1 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
+                    <h3 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
                       ${this.state.priceSmall.expressPrice}
-                    </div>
+                    </h3>
                  </div>
                 }
                 {this.props.carwash.currentCarwash.car.car.size == 'mediano' && 
                  <div>
-                    <div h1 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
+                    <h3 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
                       ${this.state.priceMedium.expressPrice}
-                    </div>
+                    </h3>
                  </div>
                 }
                 {this.props.carwash.currentCarwash.car.car.size == 'grande' && 
                  <div>
-                    <div h1 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
+                    <h3 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
                       ${this.state.priceLarge.expressPrice}
-                    </div>
+                    </h3>
                  </div>
                 }
               <div style={{fontSize: 18, width: 200, textAlign: 'center', color: 'black', shadowColor:'white', paddingTop: 20, }}>
@@ -222,16 +225,16 @@ class WashType extends React.Component {
                 </div>
               <Button
                   color="black"
-                  style={{ width: 150, borderRadius: 5, marginTop: 30}}
+                  style={{ backgroundColor: 'black', width: 150, borderRadius: 5, marginTop: 30}}
                   onClick={this.toggleExpress}
                   
                   >
                   <div p style={{color: 'white', shadowColor:'white'}}>Empezar</div>
               </Button>
-            </div>
+            </Card>
 
-            <div style={styles.cardblock}>
-              <div h3 style={{color: '#286AEC', marginTop: 20, shadowColor:'white'}}>Ecológico</div>
+            <Card style={styles.cardblock}>
+              <h2 style={{color: '#286AEC', marginTop: 20, shadowColor:'white'}}>Ecológico</h2>
               <div
                 style={{
                   width: 200,
@@ -242,23 +245,23 @@ class WashType extends React.Component {
               />
                 {this.props.carwash.currentCarwash.car.car.size == 'chico' && 
                  <div>
-                    <div h1 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
+                    <h3 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
                       ${this.state.priceSmall.enceradoPrice}
-                    </div>
+                    </h3>
                  </div>
                 }
                 {this.props.carwash.currentCarwash.car.car.size == 'mediano' && 
                  <div>
-                    <div h1 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
+                    <h3 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
                       ${this.state.priceMedium.enceradoPrice}
-                    </div>
+                    </h3>
                  </div>
                 }
                 {this.props.carwash.currentCarwash.car.car.size == 'grande' && 
                  <div>
-                    <div h1 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
+                    <h3 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
                       ${this.state.priceLarge.enceradoPrice}
-                    </div>
+                    </h3>
                  </div>
                 }            
                 <div style={{fontSize: 18, width: 200, textAlign: 'center', color: 'black', shadowColor:'white', paddingTop: 20, }}>
@@ -266,15 +269,15 @@ class WashType extends React.Component {
                 </div>
               <Button
                   color="black"
-                  style={{ width: 150, borderRadius: 5, marginTop: 30}}
+                  style={{ backgroundColor: 'black', width: 150, borderRadius: 5, marginTop: 30}}
                   onClick={this.toggleEncerado}
                   
                   >
                   <div p style={{color: 'white', shadowColor:'white'}}>Empezar</div>
               </Button>
-            </div>
-            <div style={styles.cardblock}>
-              <div h3 style={{color: '#286AEC', marginTop: 20, shadowColor:'white'}}>Detallado</div>
+            </Card>
+            <Card style={styles.cardblock}>
+              <h2 style={{color: '#286AEC', marginTop: 20, shadowColor:'white'}}>Detallado</h2>
               <div
                 style={{
                   width: 200,
@@ -286,23 +289,23 @@ class WashType extends React.Component {
 
                 {this.props.carwash.currentCarwash.car.car.size == 'chico' && 
                  <div>
-                    <div h1 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
+                    <h3 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
                       ${this.state.priceSmall.detalladoPrice}
-                    </div>
+                    </h3>
                  </div>
                 }
                 {this.props.carwash.currentCarwash.car.car.size == 'mediano' && 
                  <div>
-                    <div h1 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
+                    <h3 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
                       ${this.state.priceMedium.detalladoPrice}
-                    </div>
+                    </h3>
                  </div>
                 }
                 {this.props.carwash.currentCarwash.car.car.size == 'grande' && 
                  <div>
-                    <div h1 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
+                    <h3 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
                       ${this.state.priceLarge.detalladoPrice}
-                    </div>
+                    </h3>
                  </div>
                 }    
 
@@ -311,17 +314,17 @@ class WashType extends React.Component {
                 </div>
               <Button
                   color="black"
-                  style={{ width: 150, borderRadius: 5, marginTop: 30}}
+                  style={{ backgroundColor: 'black', width: 150, borderRadius: 5, marginTop: 30}}
                   onClick={this.toggleDetallado}
                   
                   >
                   <div p style={{color: 'white', shadowColor:'white'}}>Empezar</div>
               </Button>
-            </div>
+            </Card>
 
             
-            <div style={styles.cardblock}>
-              <div h3 style={{color: '#286AEC', marginTop: 20, shadowColor:'white'}}>Interior</div>
+            <Card style={styles.cardblock}>
+              <h2 style={{color: '#286AEC', marginTop: 20, shadowColor:'white'}}>Interior</h2>
               <div
                 style={{
                   width: 200,
@@ -333,23 +336,23 @@ class WashType extends React.Component {
 
                 {this.props.carwash.currentCarwash.car.car.size == 'chico' && 
                  <div>
-                    <div h1 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
+                    <h3 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
                       ${this.state.priceSmall.interiorPrice}
-                    </div>
+                    </h3>
                  </div>
                 }
                 {this.props.carwash.currentCarwash.car.car.size == 'mediano' && 
                  <div>
-                    <div h1 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
+                    <h3 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
                       ${this.state.priceMedium.interiorPrice}
-                    </div>
+                    </h3>
                  </div>
                 }
                 {this.props.carwash.currentCarwash.car.car.size == 'grande' && 
                  <div>
-                    <div h1 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
+                    <h3 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
                       ${this.state.priceLarge.interiorPrice}
-                    </div>
+                    </h3>
                  </div>
                 }    
 
@@ -358,14 +361,14 @@ class WashType extends React.Component {
                 </div>
               <Button
                   color="black"
-                  style={{ width: 150, borderRadius: 5, marginTop: 30}}
+                  style={{ backgroundColor: 'black', width: 150, borderRadius: 5, marginTop: 30}}
                   onClick={this.toggleInterior}
                   >
                   <div p style={{color: 'white', shadowColor:'white'}}>Empezar</div>
               </Button>
-            </div>
-            <div style={styles.cardblock}>
-              <div h3 style={{color: '#286AEC', marginTop: 20, shadowColor:'white'}}>Pulido y Encerado</div>
+            </Card>
+            <Card style={styles.cardblock}>
+              <h2 style={{color: '#286AEC', marginTop: 20, shadowColor:'white'}}>Pulido y Encerado</h2>
               <div
                 style={{
                   width: 200,
@@ -377,23 +380,23 @@ class WashType extends React.Component {
 
                 {this.props.carwash.currentCarwash.car.car.size == 'chico' && 
                  <div>
-                    <div h1 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
+                    <h3 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
                       ${this.state.priceSmall.polishedPrice}
-                    </div>
+                    </h3>
                  </div>
                 }
                 {this.props.carwash.currentCarwash.car.car.size == 'mediano' && 
                  <div>
-                    <div h1 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
+                    <h3 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
                       ${this.state.priceMedium.polishedPrice}
-                    </div>
+                    </h3>
                  </div>
                 }
                 {this.props.carwash.currentCarwash.car.car.size == 'grande' && 
                  <div>
-                    <div h1 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
+                    <h3 style={{  marginTop: 30, color: 'black', shadowColor:'white'}}>
                       ${this.state.priceLarge.polishedPrice}
-                    </div>
+                    </h3>
                  </div>
                 }    
 
@@ -402,13 +405,13 @@ class WashType extends React.Component {
                 </div>
               <Button
                   color="black"
-                  style={{ width: 150, borderRadius: 5, marginTop: 30}}
+                  style={{ backgroundColor: 'black', width: 150, borderRadius: 5, marginTop: 30}}
                   onClick={this.togglePolished}
                   
                   >
                   <div p style={{color: 'white', shadowColor:'white'}}>Empezar</div>
               </Button>
-            </div>
+            </Card>
 
         </div>
         </div>
@@ -424,18 +427,19 @@ const styles = {
       backgroundColor: "black",
     },
     cardblock: {
-      width: 10 * 20 ,
-      marginTop: 20,
-      paddingTop: 20,
+      float: 'left',
+      padding: 50,
+      width: 300,
+      height: 400,
+      margin:10,
+
       alignItems: 'center',
       backgroundColor: "white",
       borderRadius: 20,
-      height:  10 * 25,
       shadowColor: '#C0C0C0',
       shadowOffset: { width: .5, height: 1.5 },
       shadowOpacity: 0.9,
       shadowRadius:2,  
-      elevation: 1,
     },
     padded: {
       paddingHorizontal:  10 * 2,

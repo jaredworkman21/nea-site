@@ -2,7 +2,10 @@ import React from "react";
 import {connect} from 'react-redux';
 import { ADD_SUBSCRIPTION_TO_CARWASH } from '../actions/types';
 import {Link, withRouter} from 'react-router-dom';
-import {Button, Switch} from '@material-ui/core';
+import {Button, Switch, Card} from '@material-ui/core';
+import Header from "../components/Header";
+import lighter from '../assets/imgs/lighter_background_wet.png'
+
 
 
 
@@ -52,55 +55,55 @@ class SubscriptionType extends React.Component {
     }
     yearly () {
       return  <div style={{textAlign: 'center'}}>
-            <div style={{flexDirection:"row"}}>
-                <div style={{flex:1, alignItems: 'center'}}>
+            <div className="row">
+                  <div className="col-6 col-md-6" style={{flex:1, alignItems: 'center'}}>
                     <div style={styles.cardblock}>
                         {(this.props.carwash.currentCarwash.washType == 'express') &&
-                        <div h3>${(this.props.carwash.currentCarwash.priceTemp * 11/12).toFixed(0)}</div>
+                        <h3>${(this.props.carwash.currentCarwash.priceTemp * 11/12).toFixed(0)}</h3>
                         }
                         {(this.props.carwash.currentCarwash.washType == 'encerado') &&
-                        <div h3>${(this.props.carwash.currentCarwash.priceTemp * 11/12).toFixed(0)}</div>
-                        }
+                        <h3>${(this.props.carwash.currentCarwash.priceTemp * 11/12).toFixed(0)}</h3>
+                      }
                         {(this.props.carwash.currentCarwash.washType == 'detallado') &&
-                        <div h3>${(this.props.carwash.currentCarwash.priceTemp * 11/12).toFixed(0)}</div>
-                        }
+                        <h3>${(this.props.carwash.currentCarwash.priceTemp * 11/12).toFixed(0)}</h3>
+                      }
                         {(this.props.carwash.currentCarwash.washType == 'interior') &&
-                        <div h3>${(this.props.carwash.currentCarwash.priceTemp * 11/12).toFixed(0)}</div>
-                        }
+                        <h3>${(this.props.carwash.currentCarwash.priceTemp * 11/12).toFixed(0)}</h3>
+                      }
                         {(this.props.carwash.currentCarwash.washType == 'polished') &&
-                        <div h3>${(this.props.carwash.currentCarwash.priceTemp * 11/12).toFixed(0)}</div>
-                        }
+                        <h3>${(this.props.carwash.currentCarwash.priceTemp * 11/12).toFixed(0)}</h3>
+                      }
                         <div style={{marginTop: 10}}>Cada Mes</div>
                         <Button 
                             color="#286AEC"
-                            style={{width: 100, height: 40, margin: 20}}
+                            style={{paddingLeft: 15, paddingRight: 15, backgroundColor: '#286AEC', width: 130, color:"white", height: 40, margin: 20}}
                             onClick={() => this.selectBilling('monthly-yearly')}
                             >
                                 Seleccione
                             </Button>
                     </div>
                 </div>
-                <div style={{flex:1, alignItems: 'center'}}>
+                <div className="col-6 col-md-6" style={{flex:1, alignItems: 'center'}}>
                     <div style={styles.cardblock}>
                         {(this.props.carwash.currentCarwash.washType == 'express') &&
-                        <div h3>${(this.props.carwash.currentCarwash.priceTemp * 10/12).toFixed(0) }</div>
+                        <h3>${(this.props.carwash.currentCarwash.priceTemp * 10/12).toFixed(0) }</h3>
                         }
                         {(this.props.carwash.currentCarwash.washType == 'encerado') &&
-                        <div h3>${(this.props.carwash.currentCarwash.priceTemp * 10/12).toFixed(0) }</div>
-                        }
+                        <h3>${(this.props.carwash.currentCarwash.priceTemp * 10/12).toFixed(0) }</h3>
+                      }
                         {(this.props.carwash.currentCarwash.washType == 'detallado') &&
-                        <div h3>${(this.props.carwash.currentCarwash.priceTemp * 10/12).toFixed(0) }</div>
-                        }
+                        <h3>${(this.props.carwash.currentCarwash.priceTemp * 10/12).toFixed(0) }</h3>
+                      }
                         {(this.props.carwash.currentCarwash.washType == 'interior') &&
-                        <div h3>${(this.props.carwash.currentCarwash.priceTemp * 10/12).toFixed(0) }</div>
-                        }
+                        <h3>${(this.props.carwash.currentCarwash.priceTemp * 10/12).toFixed(0) }</h3>
+                      }
                         {(this.props.carwash.currentCarwash.washType == 'polished') &&
-                        <div h3>${(this.props.carwash.currentCarwash.priceTemp * 10/12).toFixed(0) }</div>
-                        }                           
+                        <h3>${(this.props.carwash.currentCarwash.priceTemp * 10/12).toFixed(0) }</h3>
+                      }                           
                         <div style={{marginTop: 10}}>Cada Semana</div>
                         <Button 
                             color="#286AEC"
-                            style={{width: 100, height: 40, margin: 20}}
+                            style={{paddingLeft: 15, paddingRight: 15, backgroundColor: '#286AEC', width: 130, color:"white", height: 40, margin: 20}}
                             onClick={() => this.selectBilling('weekly-yearly')}
                             >
                                 Seleccione
@@ -112,55 +115,55 @@ class SubscriptionType extends React.Component {
     }
       monthly () {
         return  <div style={{textAlign: 'center'}}>
-              <div style={{flexDirection:"row"}}>
-                  <div style={{flex:1, alignItems: 'center'}}>
+              <div className="row">
+                  <div className="col-6 col-md-6" style={{flex:1, alignItems: 'center'}}>
                       <div style={styles.cardblock}>
                         {(this.props.carwash.currentCarwash.washType == 'express') &&
-                            <div h3>${(this.props.carwash.currentCarwash.priceTemp * .95).toFixed(0) }</div>
+                            <h3>${(this.props.carwash.currentCarwash.priceTemp * .95).toFixed(0) }</h3>
                             }
                             {(this.props.carwash.currentCarwash.washType == 'encerado') &&
-                            <div h3>${(this.props.carwash.currentCarwash.priceTemp * .95).toFixed(0) }</div>
-                            }
+                            <h3>${(this.props.carwash.currentCarwash.priceTemp * .95).toFixed(0) }</h3>
+                          }
                             {(this.props.carwash.currentCarwash.washType == 'detallado') &&
-                            <div h3>${(this.props.carwash.currentCarwash.priceTemp * .95).toFixed(0) }</div>
-                            }
+                            <h3>${(this.props.carwash.currentCarwash.priceTemp * .95).toFixed(0) }</h3>
+                          }
                             {(this.props.carwash.currentCarwash.washType == 'interior') &&
-                            <div h3>${(this.props.carwash.currentCarwash.priceTemp * .95).toFixed(0) }</div>
-                            }   
+                            <h3>${(this.props.carwash.currentCarwash.priceTemp * .95).toFixed(0) }</h3>
+                          }   
                             {(this.props.carwash.currentCarwash.washType == 'polished') &&
-                            <div h3>${(this.props.carwash.currentCarwash.priceTemp * .95).toFixed(0) }</div>
-                            }                              
+                            <h3>${(this.props.carwash.currentCarwash.priceTemp * .95).toFixed(0) }</h3>
+                          }                              
                           <div style={{marginTop: 10}}>Cada Mes</div>
                           <Button 
                               color="#286AEC"
-                              style={{width: 100, height: 40, margin: 20}}
+                              style={{paddingLeft: 15, paddingRight: 15, backgroundColor: '#286AEC', width: 130, color:"white", height: 40, margin: 20}}
                               onClick={() => this.selectBilling('monthly-monthly')}
                               >
                                   Seleccione
                               </Button>
                       </div>
                   </div>
-                  <div style={{flex:1, alignItems: 'center'}}>
+                  <div className="col-6 col-md-6" style={{flex:1, alignItems: 'center'}}>
                       <div style={styles.cardblock}>
                             {(this.props.carwash.currentCarwash.washType == 'express') &&
-                            <div h3>${(this.props.carwash.currentCarwash.priceTemp * .9).toFixed(0) }</div>
+                            <h3>${(this.props.carwash.currentCarwash.priceTemp * .9).toFixed(0) }</h3>
                             }
                             {(this.props.carwash.currentCarwash.washType == 'encerado') &&
-                            <div h3>${(this.props.carwash.currentCarwash.priceTemp * .9).toFixed(0) }</div>
-                            }
+                            <h3>${(this.props.carwash.currentCarwash.priceTemp * .9).toFixed(0) }</h3>
+                          }
                             {(this.props.carwash.currentCarwash.washType == 'detallado') &&
-                            <div h3>${(this.props.carwash.currentCarwash.priceTemp * .9).toFixed(0) }</div>
-                            }
+                            <h3>${(this.props.carwash.currentCarwash.priceTemp * .9).toFixed(0) }</h3>
+                          }
                             {(this.props.carwash.currentCarwash.washType == 'interior') &&
-                            <div h3>${(this.props.carwash.currentCarwash.priceTemp * .9).toFixed(0) }</div>
-                            }  
+                            <h3>${(this.props.carwash.currentCarwash.priceTemp * .9).toFixed(0) }</h3>
+                          }  
                             {(this.props.carwash.currentCarwash.washType == 'polished') &&
-                            <div h3>${(this.props.carwash.currentCarwash.priceTemp * .9).toFixed(0) }</div>
-                            }      
+                            <h3>${(this.props.carwash.currentCarwash.priceTemp * .9).toFixed(0) }</h3>
+                          }      
                           <div style={{marginTop: 10}}>Cada Semana</div>
                           <Button 
                               color="#286AEC"
-                              style={{width: 100, height: 40, margin: 20}}
+                              style={{paddingLeft: 15, paddingRight: 15, backgroundColor: '#286AEC', width: 130, color:"white", height: 40, margin: 20}}
                               onClick={() => this.selectBilling('weekly-monthly')}
                               >
                                   Seleccione
@@ -185,27 +188,30 @@ class SubscriptionType extends React.Component {
   render() {
     return (
       <div >
+        <Header/>
 <div>
-            <div >
-            <div style={{flex:1, alignItems: 'center', marginTop: 40, marginBottom: 40}}>
-            <div 
-                h4
+        <div  style={{textAlign: 'center'}}>
+            <div style={{ backgroundImage: `url(${lighter})`, paddingTop: 100}} className="new-banner1">
+              <div  style={{textAlign: 'center'}}>
+                <div style={styles.registerContainer} className="register-container">            
+                <div style={{ alignText: 'center', margin:40}}>
+            <h4 
                 style={{  marginBottom:  10 *2, marginTop:  10 *1 }}
                 color='black'
             >
                 Una Vez
-            </div>
-                    <div style={styles.cardblock}>
-                        <div h3>${this.props.carwash.currentCarwash.priceTemp}</div>
+            </h4>
+                    <Card style={styles.cardblock}>
+                        <h3>${this.props.carwash.currentCarwash.priceTemp}</h3>
                         <div style={{marginTop: 10}}>Una Vez</div>
                         <Button 
                             color="black"
-                            style={{width: 100, height: 40, margin: 20}}
+                            style={{paddingLeft: 15, paddingRight: 15, backgroundColor: '#286AEC', width: 130, color:"white", height: 40, margin: 20}}
                             onClick={() => this.selectBilling('one-time')}
                             >
                                 Seleccione
                             </Button>
-                    </div>
+                    </Card>
                 </div>
                 <div style={{height: 600, 
                     backgroundColor: 'white', 
@@ -213,27 +219,27 @@ class SubscriptionType extends React.Component {
                     shadowColor: 'black', 
                     borderRadius: 50,
                     alignItems: 'center'}}>
-            <div 
+            <h4 
                 h4
-                style={{  marginBottom:  10 / 2, marginTop:  10 *2 }}
+                style={{  marginBottom:  10 / 2, paddingTop:  40 }}
                 color='black'
             >
                 Suscripciones
-            </div>
+            </h4>
                 <div style={{ alignItems: 'center'}}>
-                    <div style={{flexDirection:"row", alignItems: 'center', marginTop: 15, marginLeft: 100, marginRight: 100, marginBottom: 20}}>
-                        <div style={{flex:1, width: 20, alignItems: 'center'}}>
+                    <div className="row" style={{flexDirection:"row", textAlign: 'center', marginTop: 20}}>
+                        <div className="col-3 col-md-3"></div>
+                        <div className="col-2 col-md-2" style={{flex:1, width: 20, textAlign: 'center'}}>
                             <div>Mensual</div>
                         </div>
-                        <div style={{flex:1, width: 20, alignItems: 'center'}}>
+                        <div className="col-2 col-md-2" style={{flex:1, width: 20, textAlign: 'center'}}>
                             <Switch
-                                value={this.state.showYearlyBilling}
-                                onValueChange={this.toggleBilling}
-                                ios_backgroundColor='black'
-                                trackColor={{ false: 'grey', true: '#286AEC' }}
+                              checked={this.state.showYearlyBilling}
+                              onChange={this.toggleBilling}
+                              color="primary"
                             />
                         </div>
-                        <div style={{flex:1, width: 20, alignItems: 'center'}}>
+                        <div className="col-2 col-md-2" style={{flex:1, width: 20, textAlign: 'center'}}>
                             <div>Anual</div>
                         </div>
                     </div>
@@ -243,6 +249,9 @@ class SubscriptionType extends React.Component {
               {this.state.showBilling && this.monthly() }
             </div>
             </div>
+            </div>
+      </div>
+      </div>
         </div>
       </div>
     );
@@ -254,7 +263,7 @@ const styles = {
       backgroundColor: "black",
     },
     cardblock: {
-        width: 10 * 11 ,
+        width: '100%' ,
         paddingTop: 30,
         alignItems: 'center',
         backgroundColor: "white",
@@ -264,6 +273,15 @@ const styles = {
         shadowOpacity: 0.9,
         shadowRadius:2,  
         elevation: 1,
+    },
+    registerContainer: {
+      backgroundColor: "#F0F0F0",
+      borderRadius: 10,
+      shadowColor: "black",
+      shadowRadius: 8,
+      shadowOpacity: 0.1,
+      elevation: 1,
+      overflow: "hidden"
     },
     padded: {
       paddingHorizontal:  10 * 2,

@@ -6,6 +6,18 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import { ADD_PAYMENT_METHOD_TO_USER} from '../actions/types'
 import {updateUser, createCarwash, updateWasher, createChat, getChatDocument} from '../services/firebaseServices';
+import creditcard from '../assets/imgs/creditcard.png';
+import Header from '../components/Header';
+import lighter from '../assets/imgs/lighter_background_wet.png'
+import {Elements, CardElement} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+import CardMinimal from './CardMinimal';
+import StripeExample from './StripeExample';
+
+
+// Make sure to call `loadStripe` outside of a component’s render to avoid
+// recreating the `Stripe` object on every render.
+const stripePromise = loadStripe('pk_test_JJ1eMdKN0Hp4UFJ6kWXWO4ix00jtXzq5XG');
 
 
 class CardFormScreen extends PureComponent {
@@ -18,71 +30,8 @@ class CardFormScreen extends PureComponent {
   makePayment () {
     
   }
-  handleCardPayPress = async () => {
-    try {
-      this.setState({ loading: true, token: null })
-      // const token = await stripe.paymentRequestWithCardForm({
-      //   Only iOS support this options
-      //   smsAutofillDisabled: true,
-      //   requiredBillingAddressFields: 'full',
-      //   prefilledInformation: {
-      //     billingAddress: {
-      //       name: '',
-      //       line1: '',
-      //       line2: '',
-      //       city: '',
-      //       state: '',
-      //       country: '',
-      //       postalCode: '',
-      //       email: '',
-      //     },
-      //   },
-      // })
-      axios({
-        method:'POST',
-        url: 'https://us-central1-nea-app-b1e8f.cloudfunctions.net/createCustomer',
-        data: {
-          empty: ''
-        },
-      }).then(response => {
-        this.props.dispatch({
-          type: ADD_PAYMENT_METHOD_TO_USER,
-          payload: {
-                paymentMethod: this.state.token,
-                customer: response.data,
-          }
-        });
-        this.nextPaso(this.state.token, response.data)
-      });
-
-    } catch (error) {
-      this.setState({ loading: false })
-    }
-  }
-  nextPaso = async (token, customer) => {
-    axios({
-      method:'POST',
-      url: 'https://us-central1-nea-app-b1e8f.cloudfunctions.net/createCustomerSource',
-      data: {
-        customer: customer,
-        tokenId: token.tokenId
-      },
-    }).then(response => {
-      this.props.dispatch({
-        type: ADD_PAYMENT_METHOD_TO_USER,
-        payload: {
-              paymentMethod: token,
-              customer: customer,
-        }
-      });
-      this.finalPaso(token)
-    });
-  }
-  finalPaso = async (token) => {
-    await updateUser(this.props.user, 'paymentMethod');
-    this.setState({ loading: false, token })
-    this.props.history.push("/sumbit-carwash");
-  }
+  
+  
 
 
   render() {
@@ -90,21 +39,32 @@ class CardFormScreen extends PureComponent {
 
     return (
       <div style={styles.container}>
+        <div  style={{textAlign: 'center'}}>
+          <div style={{ backgroundImage: `url(${lighter})`, }} className="new-banner1">
+            <div  style={{textAlign: 'center', }}>
+              <div style={{backgroundColor: 'white', marginBottom: 30}}>
+              <Header/>
+              </div>
+
+              <div style={styles.registerContainer} className="register-container2">
         {this.state.token == null &&
           <div>
                 <div style={{marginTop: 30}}>
                 <img
                     style={{height:   10 * 20, width:   10 * 25, borderTopLeftRadius: 50}}
-                    src={{uri: 'https://firebasestorage.googleapis.com/v0/b/nea-app-b1e8f.appspot.com/o/app-assets%2Fcreditcard.png?alt=media&token=33cfdc90-f0d1-4b02-9ef1-4580a2ff55ef'}}
+                    src={creditcard}
               />
                   </div>
+                  <div className="checkout-container">
+                      
+                      <StripeExample/>
+
+                    </div>
+                 
+                  
+                                  
                 <div style={{marginTop: 30, alignItems: 'center'}}>
-                <Button
-                    text="Agregar Tarjeta"
-                    loading={loading}
-                    style={styles.buttonStyle}
-                    onClick={this.handleCardPayPress}
-                  />
+
                   </div>
 
             </div>
@@ -115,15 +75,18 @@ class CardFormScreen extends PureComponent {
           <div>
 
             <Button
-              loading={loading}
-              text="Completar la Compra"
-              style={styles.buttonStyle}
+              style={{color: 'white', backgroundColor: 'black'}}
               onClick={this.makePayment}
             >
+              Completar la Compra
             </Button>
             </div>
           }
         </div>
+      </div>
+      </div>
+      </div>
+      </div>
       </div>
     )
   }
@@ -134,6 +97,15 @@ const styles = {
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
+  },
+  registerContainer: {
+    backgroundColor: "white",
+    borderRadius: 10,
+    shadowColor: "black",
+    shadowRadius: 8,
+    shadowOpacity: 0.1,
+    elevation: 1,
+    overflow: "hidden"
   },
   buttonStyle: {
     backgroundColor: 'black',

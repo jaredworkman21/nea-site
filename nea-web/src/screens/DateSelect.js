@@ -4,8 +4,16 @@ import {connect} from 'react-redux';
 import { ADD_DATE_TO_CARWASH, ADD_WASHERS_DATA, SET_CASH } from '../actions/types';
 import {getAllWashers} from '../services/firebaseServices';
 import Moment from 'moment';
-import {Button} from '@material-ui/core';
+import {Button, TextField} from '@material-ui/core';
 import {Link, withRouter} from 'react-router-dom';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+import Grid from '@material-ui/core/Grid';
+import Header from "../components/Header";
+import lighter from '../assets/imgs/lighter_background_wet.png'
 
 
 class DateSelect extends React.Component {
@@ -13,14 +21,19 @@ class DateSelect extends React.Component {
     super(props);
     this.state = {
         time: null,
+        selectedDate: new Date(),
+        selectedTime: null,
         selectedStartDate: null,
         isDatePickerVisible: false,
         setDatePickerVisibility: false,
         dateString: null,
+        value: null,
         errorMessage: '',
     };
     this.onDateChange = this.onDateChange.bind(this);
     }
+
+    
     updateDate= async (payType) => {
       if(this.state.time == null){
         this.setState({errorMessage: "Por favor agregar una hora"});
@@ -86,31 +99,34 @@ class DateSelect extends React.Component {
     };
     
     handleConfirm = (date) => {
-        const datePM = this.formatAMPM(date);
-        console.warn("A time has been picked: ", datePM);
+      console.log(date)
+        console.warn("A time has been picked: ", date);
         this.setState({
-            time: datePM,
+            time: date,
         });
-        this.hideDatePicker();
     };
-    formatAMPM = (date) => {
-       
-        let hours = date.getHours();
-        let minutes = date.getMinutes();
-        let ampm = hours >= 12 ? 'pm' : 'am';
-        hours = hours % 12;
-        hours = hours ? hours : 12; // the hour '0' should be '12'
-        minutes = minutes < 10 ? '0'+minutes : minutes;
-        let strTime = hours + ':' + minutes + ' ' + ampm;
-        return strTime;
-      }
 
   render() {
+
+    const handleDateChange = (event) => {
+      const {value} = event.currentTarget;
+      this.onDateChange(value);
+    };
+    const handleTimeChange = (event) => {
+      const {value} = event.currentTarget;
+      this.setState({time: value});
+    };
+
     const { selectedStartDate, time } = this.state;
     const startDate = selectedStartDate ? selectedStartDate.toString() : '';
     return (
       <div >
-<div>
+                <Header/>
+
+          <div  style={{textAlign: 'center'}}>
+            <div style={{ backgroundImage: `url(${lighter})`, paddingTop: 100}} className="new-banner1">
+              <div  style={{textAlign: 'center'}}>
+                <div style={styles.registerContainer} className="register-container">
         {/* <div>
             <div>SELECTED DATE:{ startDate }</div>
         </div> */}
@@ -130,27 +146,50 @@ class DateSelect extends React.Component {
             <div>
             <div style={{ flexDirection:"row"}}>
                     <div style={{flex: 1, alignItems: 'center'}}>
-                        <Button title="Show Date Picker" onClick={this.showDatePicker} 
-                                    color="#286AEC"
-                                    style={{marginTop: 20, marginright: 20, width: 120}}> Select a Time</Button>
+                        <h3 style={{marginTop: 30}}> Select a Time</h3>
                     </div>
                     <div style={{flex: 1, alignItems: 'center'}}>
                         <div style={{backgroundColor: 'white', marginTop: 20, marginLeft: 50, padding: 10, height: 45, width: 100 }}>
-                                <div p>{ time }</div>
                         </div>
                     </div>
             </div>
+            <Grid container justify="space-around" style={{marginBottom: 50}}>
+              <TextField
+                id="date"
+                label="Fecha"
+                type="date"
+                style={{marginTop: 20}}
+                defaultValue={new Date()}
+                value={this.state.selectedStartDate}
+                onChange={event => handleDateChange(event)}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              <TextField
+                id="time"
+                label="Alarm clock"
+                type="time"
+                style={{marginTop: 20}}
+                value={this.state.time}
+                onChange={handleTimeChange}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                inputProps={{
+                  step: 300, // 5 min
+                }}
+              />
+            </Grid>
             <div style={{color:'red'}}>{this.state.errorMessage}</div>
             <Button
-                        color="#000000"
-                        style={{marginTop: 20}}
+                        style={{marginTop: 20, backgroundColor:'#000000', color: 'white'}}
                         onClick={() => this.updateDate('efectivo')}
                         >
                         Pagar en efectivo
                         </Button>
             <Button
-            color="#000000"
-            style={{marginTop: 20}}
+            style={{marginTop: 20, backgroundColor:'#000000',  marginLeft: 20, color: 'white'}}
             onClick={() => this.updateDate('aqui')}
             >
             Pagar aquí
@@ -163,7 +202,9 @@ class DateSelect extends React.Component {
                 onCancel={this.hideDatePicker}
             /> */}
             </div>
-
+            </div>
+        </div>
+      </div>
         </div>
         </div>
       </div>
@@ -175,6 +216,16 @@ const styles = {
     container: {
         backgroundColor: 'white',
       padding: 40
+    },
+    registerContainer: {
+      backgroundColor: "white",
+      borderRadius: 10,
+      padding: 50,
+      shadowColor: "black",
+      shadowRadius: 8,
+      shadowOpacity: 0.1,
+      elevation: 1,
+      overflow: "hidden"
     },
     cardblock: {
         width: 10 * 20 ,

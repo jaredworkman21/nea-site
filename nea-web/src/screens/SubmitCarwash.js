@@ -3,9 +3,11 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import {ADD_PAYMENT_STATUS_TO_CARWASH, ADD_CARWASH, ADD_CARWASH_TO_USER,UPDATE_CAR_ON_USER, ADD_CARWASH_TO_WASHER, LOAD_CHAT} from '../actions/types'
 import {updateUser, createCarwash, updateWasher, createChat, getChatDocument} from '../services/firebaseServices';
-
+import lighter from '../assets/imgs/lighter_background_wet.png'
+import check from '../assets/imgs/check.png';
 import {Button} from '@material-ui/core';
 import {Link, withRouter} from 'react-router-dom';
+import Header from "../components/Header";
 
 
 class SubmitCarwash extends React.Component {
@@ -175,52 +177,56 @@ class SubmitCarwash extends React.Component {
     console.log('test3:', this.props.carwash.carwashes.length);
     return (
       <div style={styles.container}>
+                        <Header/>
+
+<div  style={{textAlign: 'center'}}>
+  <div style={{ backgroundImage: `url(${lighter})`, paddingTop: 100}} className="new-banner1">
+    <div  style={{textAlign: 'center'}}>
+      <div style={styles.registerContainer} className="register-container">
         {/* <img src={{uri: 'https://firebasestorage.googleapis.com/v0/b/nea-app-b1e8f.appspot.com/o/app-assets%2Flighter_background_wet.png?alt=media&token=e129172c-0b32-4f31-bcf3-6f7b2158bd9b'}} style={styles.image}> */}
-            <div p style={{  marginTop:  10 *2, marginLeft:  10 *3 }} color='black'>
+            <h3 style={{  marginLeft:  10 *3 }} color='black'>
                  Realizar el pago
-               </div>
+               </h3>
             <div style={{alignItems: 'center'}}>
-              <div style={styles.cardblock} >
+              <div >
                     <div style={{alignItems: 'center'}}>
+                      <h4 style={{color: '#286AEC'}}>${this.props.carwash.currentCarwash.price}</h4>
                       <div p style={{  marginBottom:  10 / 2, marginTop:  10 *1 }} color='black'>
                           Pago total
                       </div>
-                      <div h2 style={{color: '#286AEC'}}>${this.props.carwash.currentCarwash.price}</div>
                     </div>
-                    <div style={{padding: 30}}>
-                      <div  space="between">
-                        <div >
-                        <div  size={12} color='black'>Fecha</div>
-
-                          <div
-                            size={15}
-                            color="#525F7F"
-                            style={{ marginBottom: 4 }}
-                          >
-                            {this.props.carwash.currentCarwash.dateString}
-                          </div>
-                        </div>
-                        <div >
-                            <img
-                            src={{uri: 'https://firebasestorage.googleapis.com/v0/b/nea-app-b1e8f.appspot.com/o/app-assets%2Fcheck.png?alt=media&token=2bcf402a-0cd8-412b-9ce7-05ea16ff0620'}}
-                            style={{height: 50, width: 50}}
-                          />
-
-                        </div>
-                        
-                        <div >
-                          <div  size={12} color='black'>Tiempo</div>
-                            <div
-                              color="#525F7F"
-                              size={15}
-                              style={{ marginBottom: 4}}
-                            >
-                            {this.props.carwash.currentCarwash.time}
-                            </div>
+                    <div className="row" style={{marginTop: 40}}>
+                      <div className="col-4 col-md-4" >
+                      <div  color='black'>Fecha</div>
+                        <div
+                          size={15}
+                          color="#525F7F"
+                          style={{ marginBottom: 4 }}
+                        >
+                          {this.props.carwash.currentCarwash.dateString}
                         </div>
                       </div>
-                    </div>
-            </div>
+                      <div className="col-4 col-md-4" >
+                        <div >
+                              <img
+                              src={check}
+                              style={{height: 50, width: 50}}
+                            />
+
+                          </div>
+                      </div>
+                      <div className="col-4 col-md-4" >
+                        <div  size={12} color='black'>Tiempo</div>
+                              <div
+                                color="#525F7F"
+                                size={15}
+                                style={{ marginBottom: 4}}
+                              >
+                              {this.props.carwash.currentCarwash.time}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
             </div>
             <div p style={{  marginTop:  10 *2, marginLeft:  10 *3 }} color='black'>
                  Mèthodo de Pago
@@ -266,8 +272,10 @@ class SubmitCarwash extends React.Component {
                                 <div>Inicio</div>
                             </Button> */}
             </div>
-            
-        {/* </ImageBackground> */}
+            </div>
+            </div>
+            </div>
+            </div>
        </div>
     );
   }
@@ -277,6 +285,16 @@ const styles = {
     container: {
       flex: 1,
       flexDirection: "column",
+    },
+    registerContainer: {
+      backgroundColor: "white",
+      borderRadius: 10,
+      padding: 50, 
+      shadowColor: "black",
+      shadowRadius: 8,
+      shadowOpacity: 0.1,
+      elevation: 1,
+      overflow: "hidden"
     },
     image: {
       flex: 1,
