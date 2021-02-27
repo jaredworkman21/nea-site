@@ -50,6 +50,7 @@ class DashboardTabs extends React.Component {
 
         return (
             <div
+            className="tap-small"
             style={{ backgroundColor: '#F9F9F9', height: 1000}}
         >
             <div style={{alignItems:'center', paddingBottom: 800, display:'inline-block'}}>
@@ -147,15 +148,15 @@ class DashboardTabs extends React.Component {
     if(this.props.user.cars.length > 0){
         return (
             <div
-            style={{ backgroundColor: '#F9F9F9', height: 1000, paddingBottom: 400}}
+            className="tap-small"
+            style={{ backgroundColor: '#f1f1f1', height: 1000, paddingBottom: 400}}
         >
             <div style={{alignItems:'center', marginTop: 50, marginBottom: 600, display:'inline-block'}}>
             { this.props.user.cars.map((item)=> 
 
                 <div
                 key={item.id}
-                style={{marginBottom: 15}}
-                 style={{float: 'left'}}
+                 style={{float: 'left', marginBottom: 20, marginRight: 20}}
                 >
                     <div 
                             onClick={() => this.selectCar(item)}
@@ -267,7 +268,7 @@ class DashboardTabs extends React.Component {
                 <Tab label="Lavados" {...a11yProps(1)} />
           </Tabs>
         </AppBar>
-          <div style={{backgroundColor:'#F6F6F6', height: 700}}>
+          <div style={{backgroundColor:'#F1f1f1', height: 1000}}>
               <TabPanel value={this.state.value} index={0}>
               {this.displayCars()}
               </TabPanel>

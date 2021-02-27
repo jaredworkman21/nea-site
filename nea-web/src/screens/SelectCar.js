@@ -25,6 +25,7 @@ displayCars() {
   if(this.props.user.cars.length > 0){
       return (
           <div
+          className="tap-small"
           style={{ backgroundColor: '#F9F9F9', height: 1000, paddingBottom: 400}}
       >
           <div style={{alignItems:'center', marginTop: 50, marginBottom: 600, display:'inline-block'}}>
@@ -33,7 +34,7 @@ displayCars() {
               <div
               key={item.id}
               style={{marginBottom: 15}}
-               style={{float: 'left'}}
+               style={{float: 'left', marginRight: 40}}
               >
                   <div 
                           onClick={() => this.selectCar(item)}

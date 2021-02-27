@@ -32,9 +32,26 @@
 .addPadding {
   padding-left: 100px;
 }
+.mainLogo {
+  width: 500px;
+  margin-top: 200px;
+  margin-bottom: 50px;
+}
+.tap-small {
+  margin-left: 100px;
+}
+
 @media screen and (max-width: 800px) {
   .addPadding {
     padding-left: 0px;
+  }
+  .tap-small {
+    margin-left: 0px;
+  }
+  .mainLogo {
+    width: 200px;
+    margin-top: 200px;
+    margin-bottom: 50px;
   }
   .AppWrapper {
     width: 90%

@@ -21,6 +21,7 @@ import DateSelect from './screens/DateSelect';
 import SubmitCarwash from './screens/SubmitCarwash';
 import CardFormScreen from './screens/CardFormScreen';
 import CarDetails from './screens/CarDetails';
+import Notifications from './screens/Notifications';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -66,7 +67,7 @@ export default class App extends React.Component {
               <Route  path="/submit-carwash" component={SubmitCarwash} />
               <Route  path="/card-form-screen" component={CardFormScreen} />
               <Route  path="/car-details" component={CarDetails} />
-
+              <Route  path="/notifications" component={Notifications} />
           </Switch>
         </Router>
         </Provider>

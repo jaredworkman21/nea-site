@@ -20,7 +20,7 @@ const CARD_OPTIONS = {
       fontSize: '16px',
       fontSmoothing: 'antialiased',
       ':-webkit-autofill': {
-        color: '#fce883',
+        color: 'black',
       },
       '::placeholder': {
         color: 'grey',
@@ -142,33 +142,37 @@ class CheckoutForm extends React.Component {
       this.setState({processing: true});
     }
 
-    console.log(elements.getElement(CardElement))
-    try {
-      this.setState({ loading: true, token: null })
-      axios({
-        method:'POST',
-        url: 'https://us-central1-nea-app-b1e8f.cloudfunctions.net/createCard',
-        data: {
-          cardNumber: '',
-          exp_month: '',
-          exp_year: '',
-          cvc: '',
-        },
-      }).then(response => {
-          console.log('res', response.data)
-        // this.props.dispatch({
-        //   type: ADD_PAYMENT_METHOD_TO_USER,
-        //   payload: {
-        //         paymentMethod: this.state.token,
-        //         customer: response.data,
-        //   }
-        // });
-        // this.addStep(this.state.token, response.data)
-      });
+    console.log('cardinfo', elements.getElement(CardElement))
+    // try {
+    //   this.setState({ loading: true, token: null })
+    // //   axios({
+    // //     method:'POST',
+    // //     url: 'https://us-central1-nea-app-b1e8f.cloudfunctions.net/createCard',
+    // //     data: {
+    // //       cardNumber: '',
+    // //       exp_month: '',
+    // //       exp_year: '',
+    // //       cvc: '',
+    // //     },
+    // //   }).then(response => {
+    // //       console.log('res', response.data)
+    // //     // this.props.dispatch({
+    // //     //   type: ADD_PAYMENT_METHOD_TO_USER,
+    // //     //   payload: {
+    // //     //         paymentMethod: this.state.token,
+    // //     //         customer: response.data,
+    // //     //   }
+    // //     // });
+    // //     // this.addStep(this.state.token, response.data)
+    // //   });
 
-    } catch (error) {
-      this.setState({ loading: false })
-    }
+    // } catch (error) {
+    //   this.setState({ loading: false })
+    // }
+    const cardElement = elements.getElement(CardElement);
+    stripe.createToken(cardElement).then(function(result) {
+        console.log('res', result.token)
+      });
 
     const payload = await stripe.createPaymentMethod({
       type: 'card',
@@ -333,7 +337,7 @@ const ELEMENTS_OPTIONS = {
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
-const stripePromise = loadStripe('pk_test_JJ1eMdKN0Hp4UFJ6kWXWO4ix00jtXzq5XG');
+const stripePromise = loadStripe('pk_live_1G4QTuyk4DPizZncejNwBpJm');
 
 const StripeExample = () => {
   return (

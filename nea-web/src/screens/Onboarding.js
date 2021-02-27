@@ -112,7 +112,7 @@ class Onboarding extends React.Component {
               <div style={{ backgroundImage: `url(${leaving})`}} className="new-banner">
                 <div style={{textAlign:"center"}}>
                 <img 
-                    style={{ width: 200, marginTop: 200, marginBottom: 50 }}
+                    className="mainLogo"
                     src={logo}
                 />
                 </div>

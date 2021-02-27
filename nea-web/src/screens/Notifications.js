@@ -1,14 +1,8 @@
 import React from "react";
-import {
-  Platform, StyleSheet, Dimensions, Text,
-   Alert,
-  ActivityIndicator,
-  Image,
-} from 'react-native';
-import { View } from 'react-native';
 import {connect} from 'react-redux';
 import {getAllWashers} from '../services/firebaseServices';
 import { LOAD_NOTIFICATION, LOAD_REVIEW } from '../actions/types';
+import {Button} from '@material-ui/core';
 
 
 class Notifications extends React.Component {
@@ -45,7 +39,7 @@ class Notifications extends React.Component {
     render() {
       console.log(this.props.user.notifications);
       return (
-        <ScrollView>
+        <div>
             <div style={{alignItems: 'center'}}>
                     <div style={{fontSize: 30,  marginTop: 40, textAlign: 'center'}}>Notificaciónes</div>
                     <div style={{alignItems: 'center', marginTop: 30, marginBottom: 30}}>
@@ -155,11 +149,8 @@ const styles = {
         backgroundColor: '#fff',
         alignItems: 'center',
       },
-      mapStyle: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
-      }
-  });
+
+  };
 
   const mapStateToProps = (state) => {
     return {

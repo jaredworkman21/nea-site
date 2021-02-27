@@ -1,21 +1,32 @@
 import React from "react";
-import {LOAD_USER} from '../actions/types'
-import { createUserWithEmailAndPasswordHandler } from "../services/firebaseServices"
-import { getUserDocument} from '../services/firebaseServices';
+import {LOAD_USER, LOAD_CARWASH} from '../actions/types'
+import {checkUserStatus} from '../services/firebaseServices';
 import {connect} from 'react-redux';
-import {Button, Input, Checkbox} from '@material-ui/core';
+import {auth} from '../services/firebaseServices';
+import {firestore} from '../services/firebaseServices';
+import {Button, Input, TextField} from '@material-ui/core';
+import {Link, withRouter} from 'react-router-dom';
+import { getUserDocument } from '../services/firebaseServices'
+import { createUserWithEmailAndPasswordHandler } from "../services/firebaseServices"
+
+import lighter from '../assets/imgs/lighter_background_wet.png'
 
 const image = { uri: "https://firebasestorage.googleapis.com/v0/b/nea-app-b1e8f.appspot.com/o/app-assets%2Flighter_background_wet.png?alt=media&token=e129172c-0b32-4f31-bcf3-6f7b2158bd9b" };
 
+
 class Register extends React.Component {
   
-  state = {
-    names: '',
-    lastNames: '',
-    email: '',
-    password: '',
-    phone: '',
-    errorMessage: ''
+    state = {
+        names: '',
+        lastNames: '',
+        email: '',
+        password: '',
+        phone: '',
+        errorMessage: ''
+      }
+  constructor () {
+    super();
+    // console.ignoredYellowBox = ['Setting a timer for a long period of time, i.e. multiple minutes, is a performance and correctness issue on Android as it keeps the timer module awake, and timers can only be called when the app is in the foreground. See https://github.com/facebook/react-native/issues/12981 for more info.']
   }
 
 
@@ -43,6 +54,18 @@ class Register extends React.Component {
     return true
   }
 
+  finallySend = async (carwashes) => {
+      this.props.dispatch({
+        type: LOAD_CARWASH,
+        payload: {
+          carwashes: carwashes
+        }
+    });
+    this.setState({loading: false});
+    this.props.history.push("/dashboard");
+  }
+
+  
   createUser = async () =>{
     if(this.handleErrors())
     {
@@ -65,144 +88,173 @@ class Register extends React.Component {
         } catch (e) {
           // saving error
         }
-        this.props.navigation.navigate('App')
+        this.props.history.push("/dashboard");
       }
     }
   }
-  gotToURL() {
-    // Linking.openURL('https://www.sympact.tech/privacy-policy');
-  }
+
 
   render() {
+    const onNamesChange = (event) => {
+        const {value} = event.currentTarget;
+        this.setState({names: value});
+      };
+      const onLastNamesChange = (event) => {
+        const {value} = event.currentTarget;
+        this.setState({lastNames: value});
+      };
+      const onPhoneChange = (event) => {
+        const {value} = event.currentTarget;
+        this.setState({phone: value});
+      };
+    const onEmailChange = (event) => {
+      const {value} = event.currentTarget;
+      this.setState({email: value});
+    };
+    const onPasswordChange = (event) => {
+      const {value} = event.currentTarget;
+      this.setState({password: value});
+    };
+
     return (
-        <div  middle>
-          <img
-            src={image}
-            style={{  zIndex: 1 }}
-          />
-            <div  middle>
-              <div style={styles.registerContainer}>
+        <div  style={{textAlign: 'center'}}>
+          <div style={{ backgroundImage: `url(${lighter})`, paddingTop: 100}} className="new-banner">
+            <div  style={{textAlign: 'center'}}>
+              <div style={styles.registerContainer} className="register-container">
                 <div  space="between">
-                  <div middle space="between" style={{paddingTop: 40}}>
-                    <div center flex={0.9}>
+                  <div style={{textAlign: 'center'}} space="between" style={{paddingTop: 70}}>
+                    <div style={{textAlign: 'center'}} flex={0.9}>
                       <div  space="between">
-                        <div>
-                          <div style={{alignItems: 'center', marginBottom: 5}}>
+                        <div style={{textAlign:'center'}}>
+                          <div style={{textAlign: 'center', marginBottom: 30}}>
                               <div
                                 h5
                               >
-                                  Registrese
+                                  Registrar
                               </div>
                           </div>
                           <div
-                            
+                            style={{ marginBottom: 5, width: '70%', marginLeft: '15%' }}
                           >
-                            <Input
-                              color='black'
-                              style={{borderColor:'#C6C6C6', borderWidth:2}}
-                              placeholderTextColor="black"
+                            <TextField
+                              className="input-text"
+                              style={{marginBottom: '20px'}}
+                              id="outlined-standard-static"
+                              label=""
+                              value={this.state.names}
+                              defaultValue=""
+                              variant={"outlined"}
+                              style={{width:'96%'}}
                               placeholder="Nombres"
-                              onChangeText={text => this.setState({names: text})} 
-                              value={this.state.firstName}
+                              onChange={event => onNamesChange(event)}
                             />
+                            
                           </div>
                           <div
-                            
+                            style={{ marginBottom: 5, width: '70%', marginLeft: '15%' }}
                           >
-                            <Input
-                              color='black'
-                              style={{borderColor:'#C6C6C6', borderWidth:2}}
-                              placeholderTextColor="black"                              
+                            <TextField
+                              className="input-text"
+                              style={{marginBottom: '20px'}}
+                              id="outlined-standard-static"
+                              label=""
+                              value={this.state.lastNames}
+                              defaultValue=""
+                              variant={"outlined"}
+                              style={{width:'96%'}}
                               placeholder="Apellidos"
-                              onChangeText={text => this.setState({lastNames: text})} 
-                              value={this.state.lastName}
-                              
+                              onChange={event => onLastNamesChange(event)}
                             />
+                            
                           </div>
                           <div
-                            
+                            style={{ marginBottom: 5, width: '70%', marginLeft: '15%' }}
                           >
-                            <Input
-                              color='black'
-                              style={{borderColor:'#C6C6C6', borderWidth:2}}
-                              placeholderTextColor="black"   
-                              placeholder="Correo"
-                              onChangeText={text => this.setState({email: text})} 
-                              value={this.state.email}
-                            />
-                          </div>
-                          <div
-                            
-                          >
-                            <Input
-                              color='black'
-                              style={{borderColor:'#C6C6C6', borderWidth:2}}
-                              placeholderTextColor="black"   
-                              placeholder="Telefono"
-                              autoCapitalize = 'none'
-                              onChangeText={text => this.setState({phone: text})} 
+                            <TextField
+                              className="input-text"
+                              style={{marginBottom: '20px'}}
+                              id="outlined-standard-static"
+                              label=""
                               value={this.state.phone}
+                              defaultValue=""
+                              variant={"outlined"}
+                              style={{width:'96%'}}
+                              placeholder="Telefono"
+                              onChange={event => onPhoneChange(event)}
                             />
+                            
+                          </div>
+                          <div
+                            style={{ marginBottom: 5, width: '70%', marginLeft: '15%' }}
+                          >
+                            <TextField
+                              className="input-text"
+                              style={{marginBottom: '20px'}}
+                              id="outlined-standard-static"
+                              label=""
+                              value={this.state.email}
+                              defaultValue=""
+                              variant={"outlined"}
+                              style={{width:'96%'}}
+                              placeholder="Correo"
+                              onChange={event => onEmailChange(event)}
+                            />
+                            
+                          </div>
+                          <div
+                            style={{ marginBottom: 5, width: '70%', marginLeft: '15%' }}
+                          >
+                            <TextField
+                              className="input-text"
+                              style={{marginBottom: '20px'}}
+                              id="outlined-standard-static"
+                              label=""
+                              value={this.state.password}
+                              defaultValue=""
+                              variant={"outlined"}
+                              type="password"
+                              style={{width:'96%'}}
+                              placeholder="Contraseña"
+                              onChange={event => onPasswordChange(event)}
+                            />
+                            
                           </div>
                           <div >
-                            <Input
-                              color='black'
-                              style={{borderColor:'#C6C6C6', borderWidth:2}}
-                              placeholderTextColor="black"   
-                              placeholder="Contrasena"
-                              autoCapitalize = 'none'
-                              secureTextEntry={true}
-                              onChangeText={text => this.setState({password: text})} 
-                              value={this.state.password}
-                            />
-                          </div>
-                          <div   style={{alignItems: 'center'}}>
-                            <Checkbox
-                              checkboxStyle={{
-                                borderWidth: 1,
-                                borderColor: 'black'
-                              }}
-                              labelStyle={{
-                                color: "black",
-                              }}
-                              label="Acepto"
-                            />
-                            <Button
-                              style={{ width: 180, borderWidth: 0}}
-                              color="transparent"
-                              textStyle={{
-                                fontSize: 14,
-                                marginRight: 5,
-                                color: 'blue',
-                              }}
-                              onClick={this.gotToURL}
-                            >
-                              La Política de Privacidad
+   
 
-                            </Button>
                           </div>
-                        </div>
+                          </div>
                         <div style={{textAlign: 'center'}}>
-                          <div style={{color: 'red', paddingLeft: 10, paddingRight: 10}}>{this.state.errorMessage}</div>
-                          <Button color="primary" 
+                        <div style={{color: 'red'}}>{this.state.errorMessage}</div>
+
+                          <Button 
                           onClick={this.createUser}
-                          color="black"
+                          style={{backgroundColor: 'black', color:'white', marginTop: 10}}
                           >
                             <div
                               size={14}
-                              color="white"
                             >
                               CREAR CUENTA
                             </div>
                           </Button>
+
+                          <div style={{flexDirection: "row"}}>
+                            <Button
+                              onClick={() => this.props.history.push("/login")}
+                            >
+                                <div style={{fontWeight: 'bold', padding:20}}>Login </div>
+                            </Button>
+                            <Button
+                              onClick={() => this.props.history.push("/")}
+                            >
+                                <div style={{padding:20}}> Regrese</div>
+                            </Button>
+                          </div>
                           <Button
-                            onClick={() => this.props.navigation.navigate("Login")}
-                          >
-                              <div
-                              style={{padding: 40, paddingTop: 10}}
-                                >
-                                  Regrese</div>
-                          </Button>
+                              onClick={() => this.props.history.push("/forgot-password")}
+                            >
+                                <div style={{fontWeight: 'bold', padding:20}}>Olvidé Contraseña </div>
+                            </Button>
                         </div>
 
                       </div>
@@ -211,6 +263,7 @@ class Register extends React.Component {
                 </div>
               </div>
             </div>
+          </div>
         </div>
     );
   }
@@ -218,14 +271,9 @@ class Register extends React.Component {
 
 const styles = {
   registerContainer: {
-    
     backgroundColor: "white",
     borderRadius: 10,
     shadowColor: "black",
-    shadowOffset: {
-      width: 0,
-      height: 4
-    },
     shadowRadius: 8,
     shadowOpacity: 0.1,
     elevation: 1,
@@ -233,6 +281,7 @@ const styles = {
   },
   socialConnect: {
     backgroundColor: "white",
+    borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: "rgba(136, 152, 170, 0.3)"
   },
   socialButtons: {
@@ -274,4 +323,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps)(Register);
+export default withRouter(connect(mapStateToProps)(Register));
