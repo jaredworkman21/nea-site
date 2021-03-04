@@ -13,8 +13,8 @@ class SubscriptionType extends React.Component {
     constructor(props){
         super(props)
         this.state = { 
-            showBilling: false,
-            showYearlyBilling: true,
+            showBilling: true,
+            showYearlyBilling: false,
             typeofBilling: "Yearly"
         }
       }
@@ -23,21 +23,18 @@ class SubscriptionType extends React.Component {
         let setprice = 0;
         let recurring = false;
         if(subscription == 'monthly-yearly'){
-          setprice = this.props.carwash.currentCarwash.priceTemp * 10
           setprice = setprice.toFixed(0);
 
         }
         else if(subscription == 'weekly-yearly'){
-          setprice = this.props.carwash.currentCarwash.priceTemp * 46
           setprice = setprice.toFixed(0);
-
         }
         else if(subscription == 'monthly-monthly'){
           setprice = this.props.carwash.currentCarwash.priceTemp * .95
           setprice = setprice.toFixed(0);
         }
         else if(subscription == 'weekly-monthly'){
-          setprice = this.props.carwash.currentCarwash.priceTemp * 4 * .9
+          setprice = this.props.carwash.currentCarwash.priceTemp * .9
           setprice = setprice.toFixed(0);
         }
         else if(subscription == 'one-time'){
@@ -228,11 +225,11 @@ class SubscriptionType extends React.Component {
             </h4>
                 <div style={{ alignItems: 'center'}}>
                     <div className="row" style={{flexDirection:"row", textAlign: 'center', marginTop: 20}}>
-                        <div className="col-3 col-md-3"></div>
-                        <div className="col-2 col-md-2" style={{flex:1, width: 20, textAlign: 'center'}}>
+                        {/* <div className="col-3 col-md-3"></div> */}
+                        <div className="col-12 col-md-12" style={{flex:1, width: 20, textAlign: 'center'}}>
                             <div>Mensual</div>
                         </div>
-                        <div className="col-2 col-md-2" style={{flex:1, width: 20, textAlign: 'center'}}>
+                        {/* <div className="col-2 col-md-2" style={{flex:1, width: 20, textAlign: 'center'}}>
                             <Switch
                               checked={this.state.showYearlyBilling}
                               onChange={this.toggleBilling}
@@ -241,7 +238,7 @@ class SubscriptionType extends React.Component {
                         </div>
                         <div className="col-2 col-md-2" style={{flex:1, width: 20, textAlign: 'center'}}>
                             <div>Anual</div>
-                        </div>
+                        </div> */}
                     </div>
 
                 </div>

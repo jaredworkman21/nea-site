@@ -28,14 +28,14 @@ class TemporaryDrawer extends Component {
 
     const comp =  <Link to='/select-car'>
     <ListItem button >
-            <ListItemIcon>{<CalendarTodayIcon style={{color: '#F9A700'}} />}</ListItemIcon>
-            <ListItemText primary={"AGENDA"}  style={{color: '#696969'}} />
+            <ListItemIcon>{<CalendarTodayIcon style={{color: 'black'}} />}</ListItemIcon>
+            <ListItemText primary={"AGENDA"}  style={{color: 'black'}} />
     </ListItem>
   </Link>
     const comp2 =  <Link to='/add-car'>
     <ListItem button  >
-            <ListItemIcon>{<AddCircleIcon style={{color: '#F9A700'}} />}</ListItemIcon>
-            <ListItemText primary={"AGREGAR CARRO"}  style={{color: '#696969'}} />
+            <ListItemIcon>{<AddCircleIcon style={{color: 'black'}} />}</ListItemIcon>
+            <ListItemText primary={"AGREGAR CARRO"}  style={{color: 'black'}} />
     </ListItem>
   </Link>
 

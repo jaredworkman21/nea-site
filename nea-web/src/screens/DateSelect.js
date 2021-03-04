@@ -186,14 +186,14 @@ class DateSelect extends React.Component {
                         style={{marginTop: 20, backgroundColor:'#000000', color: 'white'}}
                         onClick={() => this.updateDate('efectivo')}
                         >
-                        Pagar en efectivo
+                        Revisar
                         </Button>
-            <Button
+            {/* <Button
             style={{marginTop: 20, backgroundColor:'#000000',  marginLeft: 20, color: 'white'}}
             onClick={() => this.updateDate('aqui')}
             >
             Pagar aquí
-            </Button>
+            </Button> */}
             {/* <DateTimePickerModal
                 headerTextIOS=""
                 isVisible={this.state.isDatePickerVisible}
@@ -202,6 +202,8 @@ class DateSelect extends React.Component {
                 onCancel={this.hideDatePicker}
             /> */}
             </div>
+
+
             </div>
         </div>
       </div>

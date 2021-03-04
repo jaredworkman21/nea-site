@@ -35,3 +35,4 @@ export const REMOVE_CAR = 'REMOVE_CAR';
 export const ADD_STRIPE_ACCOUNT_TO_WASHER = 'ADD_STRIPE_ACCOUNT_TO_WASHER';
 export const SET_CASH = 'SET_CASH';
 export const ADD_PRICETEMP = 'ADD_PRICETEMP';
+export const ADD_LAST_WASH = 'ADD_LAST_WASH';

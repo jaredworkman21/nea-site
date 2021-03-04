@@ -1,12 +1,16 @@
 import React from "react";
-import { StyleSheet, Dimensions, View, Image, Alert } from "react-native";
 import {connect} from 'react-redux';
 import {UPDATE_CARWASH_STATUS, LOAD_CARWASH, LOAD_CURRENT_CARWASH, REMOVE_CARWASH_FROM_WASHER} from '../actions/types'
 import { updateCarwash, updateWasher, getWasherDocument,  getCarwashDocument} from '../services/firebaseServices';
 // import { showLocation } from 'react-native-map-link'
 import Moment from 'moment';
 import axios from 'axios';
-import LoadingButton from "../components/LoadingButton";
+import lighter from '../assets/imgs/lighter_background_wet.png'
+import filler from '../assets/imgs/filler.png';
+import check from '../assets/imgs/check.png';
+import schedule from '../assets/imgs/schedule.png';
+import trash from '../assets/imgs/trash.png';
+import {Button, Input, TextField} from '@material-ui/core';
 
 
 class CarwashDetailsUser extends React.Component {
@@ -18,7 +22,7 @@ class CarwashDetailsUser extends React.Component {
     if(!this.state.loading){
       this.setState({loading: true})
       if(this.props.carwash.currentCarwash.paymentStatus == 'paid'){
-        Alert.alert(
+        alert(
           "Espera",
           "Si necesitas cancelar tu orden por favor llama +52 1 686 236 4628 para cancelar. Cobramos $100 pesos para cancelar.",
           [
@@ -32,7 +36,7 @@ class CarwashDetailsUser extends React.Component {
         this.setState({loading: false});
       }
       else if(this.props.carwash.currentCarwash.status == 'accepted'){
-        Alert.alert(
+        alert(
           "Espera",
           "Un lavador ya ha aceptado este trabajo. Por favor llama +52 1 686 236 4628 para cancelar. Cobramos $100 pesos para cancelar.",
           [
@@ -83,15 +87,8 @@ class CarwashDetailsUser extends React.Component {
         else{
           console.log('no carwash to delete')
         }
+        this.props.history.push("/dashboard");
 
-        this.props.navigation.dispatch(
-          CommonActions.reset({
-            index: 1,
-            routes: [
-              { name: 'Home' },
-            ],
-          })
-        );
         this.setState({loading: false});
       }
     }
@@ -99,16 +96,20 @@ class CarwashDetailsUser extends React.Component {
 
   render() {
     return (
-      <div style={styles.container}>
-        {/* <img src={{uri: 'https://firebasestorage.googleapis.com/v0/b/nea-app-b1e8f.appspot.com/o/app-assets%2Flighter_background_wet.png?alt=media&token=e129172c-0b32-4f31-bcf3-6f7b2158bd9b'}} style={styles.image}> */}
-            <div style={{alignItems: 'center'}}>
-              <div style={styles.cardblock} >
+      <div  style={{textAlign: 'center'}}>
+      <div style={{ backgroundImage: `url(${lighter})`, paddingTop: 100}} className="new-banner">
+        <div  style={{textAlign: 'center'}}>
+          <div style={styles.registerContainer} className="register-container">
+            <div  space="between">
+              <div style={{textAlign: 'center'}} space="between" style={{paddingTop: 70}}>
+                <div style={{textAlign: 'center'}} flex={0.9}>
+                  <div  space="between">
                     <div style={{ marginTop: 20}}>
                     {(this.props.carwash.currentCarwash.car.car.carUrl == '' || this.props.carwash.currentCarwash.car.car.carUrl == null ) && 
                         <div style={{alignItems: 'center'}}>
                             <img 
                                 style={{height:   10 * 7, width: 200, borderRadius: 5}}
-                                src={require('../assets/imgs/filler.png')}
+                                src={filler}
                                 />
                             </div>
                             }
@@ -116,27 +117,25 @@ class CarwashDetailsUser extends React.Component {
                                 <div style={{alignItems: 'center'}}>
                                     <img
                                 style={{height:   10 * 7, width: 200, borderRadius: 5}}
-                                src={{uri: this.props.carwash.currentCarwash.car.car.carUrl}}
+                                src={this.props.carwash.currentCarwash.car.car.carUrl}
                                     />
                                 </div>
                             {/* }  */}
-                                <div h2 style={{marginLeft: 20}}>{this.props.carwash.currentCarwash.car.car.make} {this.props.carwash.currentCarwash.car.car.model}</div>
+                                <h2  style={{marginLeft: 20, marginTop: 20}}>{this.props.carwash.currentCarwash.car.car.make} {this.props.carwash.currentCarwash.car.car.model}</h2>
                                 <div h5 style={{marginLeft: 20}}>{this.props.carwash.currentCarwash.time} {this.props.carwash.currentCarwash.dateString}</div>
-                                <div h5 style={{color: '#286AEC', marginLeft: 20}}>${this.props.carwash.currentCarwash.price}</div>
+                                <h5 style={{color: '#286AEC'}}>${this.props.carwash.currentCarwash.price}</h5>
                                 </div>
                                 
-                            <div className="row">
-                                <div style={{marginLeft: 20}}>
+                            <div style={{width: '100%'}}>
+                                <div style={{textAlign: 'center'}}>
                                 
-                                <div p style={{  marginBottom:  10 / 2, marginTop:  10 /2}} color='black'>
+                                <div p style={{  marginBottom:  10 / 2, marginTop:  10 /2, fontWeight: 'bold'}} color='black'>
                                     Dirección
                                 </div>
-                                <Button
-                                    >
+
                                     <div p >{this.props.carwash.currentCarwash.car.car.address.street}</div>
                                     <div p >{this.props.carwash.currentCarwash.car.car.address.city}</div>
                                     <div p >{this.props.carwash.currentCarwash.car.car.address.state} {this.props.carwash.currentCarwash.car.car.address.zip}</div>
-                                </Button>
 
                                 </div>
                                 
@@ -145,7 +144,7 @@ class CarwashDetailsUser extends React.Component {
 
                                 <Button
                         shadowless
-                        style={{backgroundColor: '#286AEC', width:  10 * 8, height:  10 * 8,  marginTop: 30, borderRadius: 150, marginBottom: 30}}
+                        style={{backgroundColor: '#286AEC', width:  150, height:  50,  marginTop: 30, marginBottom: 30}}
                         onClick={() =>  this.cancelWash()}
                         >
                             <div style={{color:'white', fontWeight: 'bold', fontSize: 20,}}>
@@ -157,6 +156,11 @@ class CarwashDetailsUser extends React.Component {
                 </div>
             </div>
        </div>
+       </div>
+            </div>
+       </div>
+       </div>
+            </div>
     );
   }
 }
@@ -216,6 +220,15 @@ width:  100,
       height: 22,
       marginTop: 15
     },
+    registerContainer: {
+      backgroundColor: "white",
+      borderRadius: 10,
+      shadowColor: "black",
+      shadowRadius: 8,
+      shadowOpacity: 0.1,
+      elevation: 1,
+      overflow: "hidden"
+    },
     gradient: {
       zIndex: 1,
       position: "absolute",
@@ -224,6 +237,7 @@ width:  100,
       right: 0,
       height: 66
     }
+
   }
 
   const mapStateToProps = (state) => {

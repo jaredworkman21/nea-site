@@ -119,7 +119,7 @@ class Onboarding extends React.Component {
                 <div className="row" style={{padding: 0, margin: 0}}>
                 <div className="col-md-4" style={{textAlign: 'center'}}>
                   </div>
-                  <div className="col-md-2" style={{textAlign: 'center'}}>
+                  <div className="col-md-12" style={{textAlign: 'center'}}>
                       <Button
                         
                         style={{ marginTop: 20, backgroundColor: '#fff'}}
@@ -128,14 +128,14 @@ class Onboarding extends React.Component {
                             <div color="#00000">LAVAR MI CARRO</div>
                     </Button>
                   </div>
-                  <div className="col-md-2" style={{textAlign: 'center'}}>
+                  {/* <div className="col-md-2" style={{textAlign: 'center'}}>
                     <Button
                       style={{marginTop: 20, backgroundColor: 'white'}}
                       onClick={(async () => getDataWasher())}
                       >
                       LAVAR CARROS
                   </Button>
-                  </div>
+                  </div> */}
                 </div>
               </div>
           </div>

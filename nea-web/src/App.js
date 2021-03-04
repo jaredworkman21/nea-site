@@ -22,8 +22,11 @@ import SubmitCarwash from './screens/SubmitCarwash';
 import CardFormScreen from './screens/CardFormScreen';
 import CarDetails from './screens/CarDetails';
 import Notifications from './screens/Notifications';
+import PaymentSuccess from './screens/PaymentSuccess';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import CheckoutPage from './screens/CheckoutPage'
+import CarwashDetailsUser from './screens/CarwashDetailsUser';
 
 const stripePromise = loadStripe('pk_test_JJ1eMdKN0Hp4UFJ6kWXWO4ix00jtXzq5XG');
 
@@ -67,7 +70,13 @@ export default class App extends React.Component {
               <Route  path="/submit-carwash" component={SubmitCarwash} />
               <Route  path="/card-form-screen" component={CardFormScreen} />
               <Route  path="/car-details" component={CarDetails} />
+              <Route  path="/carwash-details-user" component={CarwashDetailsUser} />
               <Route  path="/notifications" component={Notifications} />
+              <Route  path="/payment-success" component={PaymentSuccess} />
+              <Route 
+              path="/checkout/:parameter1/:parameter2" 
+              render={props => <CheckoutPage {...props} />}
+              />
           </Switch>
         </Router>
         </Provider>

@@ -86,7 +86,7 @@ class Login extends React.Component {
         let i = 0;
         if(userData.carwashIds.length == 0){
           console.log('trying to get to the app');
-          this.props.navigation.navigate('App');
+          this.props.history.push("/dashboard");
         }
         userData.carwashIds.forEach(async (id) => {
           const carwashRef = await firestore.doc(`carwash/${id}`).get();

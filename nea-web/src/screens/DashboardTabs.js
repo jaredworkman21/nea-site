@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import filler from '../assets/imgs/filler.png';
 import nocar from '../assets/imgs/no-car.png';
 import check from '../assets/imgs/check.png';
+
 class DashboardTabs extends React.Component {
   state = {
     value: 0,
@@ -24,7 +25,7 @@ class DashboardTabs extends React.Component {
 
   
   selectCar (car) {
-    this.props.additionalProps.navigation.navigate('CarDetails');
+    this.props.additionalProps.history.push("/car-details");
     this.props.dispatch({
       type: ADD_CAR_TO_CARWASH,
       payload: {
@@ -39,8 +40,8 @@ class DashboardTabs extends React.Component {
               currentCarwash: carwash,
         }
       });
-    this.props.additionalProps.navigation.navigate('CarwashDetailsUser')
-}
+      this.props.additionalProps.history.push("/carwash-details-user");
+    }
   displayCarwashes() {
     let numPending = 0;
     this.props.carwash.carwashes.forEach(wash => {
@@ -400,4 +401,4 @@ const mapStateToProps = (state) => {
     }
   };
 
-  export default connect(mapStateToProps)(DashboardTabs);
+  export default withRouter(connect(mapStateToProps)(DashboardTabs));

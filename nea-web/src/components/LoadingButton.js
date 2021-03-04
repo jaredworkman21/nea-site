@@ -83,4 +83,4 @@ const styles = {
     backgroundColor: '#286AEC',
     alignItems: 'center',
   },
-})
+}

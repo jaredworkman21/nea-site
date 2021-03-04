@@ -11,6 +11,7 @@ import {
      UPDATE_CARWASH_STATUS,
      SET_CASH,
      ADD_PRICETEMP,
+     ADD_LAST_WASH,
     } from '../actions/types';
 
 const initialState = {
@@ -27,6 +28,7 @@ const initialState = {
         price: "",
         date: "",
         dateString: "",
+        dayString: "",
         time: "",
         chatId: "",
         status: '',
@@ -34,6 +36,7 @@ const initialState = {
         cash: false,
         closestWashers: [],
         priceTemp: '',
+        lastWash: '',
     }
 }
 
@@ -69,6 +72,14 @@ const carwashReducer = (state = initialState, action) => {
                 currentCarwash: {
                     ...state.currentCarwash,
                     cash: action.payload.cash
+                }
+            }
+        case ADD_LAST_WASH:
+            return {
+                ...state,
+                currentCarwash: {
+                    ...state.currentCarwash,
+                    lastWash: action.payload.lastWash
                 }
             }
         case ADD_TYPE_TO_CARWASH:

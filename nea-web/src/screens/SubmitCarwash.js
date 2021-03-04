@@ -2,18 +2,23 @@ import React from "react";
 import {connect} from 'react-redux';
 import axios from 'axios';
 import {ADD_PAYMENT_STATUS_TO_CARWASH, ADD_CARWASH, ADD_CARWASH_TO_USER,UPDATE_CAR_ON_USER, ADD_CARWASH_TO_WASHER, LOAD_CHAT} from '../actions/types'
-import {updateUser, createCarwash, updateWasher, createChat, getChatDocument} from '../services/firebaseServices';
+import {updateUser, updateCarwash, createCarwash, updateWasher, createChat, getChatDocument} from '../services/firebaseServices';
 import lighter from '../assets/imgs/lighter_background_wet.png'
 import check from '../assets/imgs/check.png';
 import {Button} from '@material-ui/core';
 import {Link, withRouter} from 'react-router-dom';
 import Header from "../components/Header";
+import { PayPalButton } from "react-paypal-button-v2";
 
 
 class SubmitCarwash extends React.Component {
   state = {
-    loading: false
+    loading: false,
+    gotInfo: false,
+    subscriptionID: '',
+    price: ""
   }
+
   submitCarwashToServer = async (carwash) => {
     axios({
       method:'POST',
@@ -174,6 +179,172 @@ class SubmitCarwash extends React.Component {
       }
   };
   render() {
+    const getInfo = async() => {
+      console.log('t', this.props.carwash.currentCarwash.subscription)
+      this.setState({gotInfo: true})
+      const carwash = this.props.carwash.currentCarwash;
+      if(carwash.subscription == 'monthly-monthly'){
+          if(carwash.car.car.size == "chico"){
+              if(carwash.washType == "express"){
+                  this.setState({subscriptionID: 'P-2GA27402NJ290181UMA7GYAA'});
+              }
+              else if(carwash.washType == "encerado"){
+                  this.setState({subscriptionID: 'P-3M813046329589424MA7G2AI'});
+              }
+              else if(carwash.car.car.size == "detallado"){
+                  this.setState({subscriptionID: 'P-70H06404040570116MA7G2MI'});
+              }
+              else if(carwash.car.car.size == "interior"){
+                  this.setState({subscriptionID: 'P-51056819RX944364CMA7G27I'});
+              }
+              else if(carwash.car.car.size == "polished"){
+                  this.setState({subscriptionID: 'P-67765509H79506609MA7G3NQ'});
+              }
+          }
+          else if(carwash.car.car.size == "mediano"){
+              if(carwash.washType == "express"){
+                  this.setState({subscriptionID: 'P-59846759FE8536432MA7GYRI'});
+              }
+              else if(carwash.washType == "encerado"){
+                  this.setState({subscriptionID: 'P-6JE66062TJ2238215MA7G6QQ'});
+              }
+              else if(carwash.car.car.size == "detallado"){
+                  this.setState({subscriptionID: 'P-47Y86516DP699263KMA7G7EA'});
+              }
+              else if(carwash.car.car.size == "interior"){
+                  this.setState({subscriptionID: 'P-1WC18026GF724604DMA7G7YY'});
+              }
+              else if(carwash.car.car.size == "polished"){
+                  this.setState({subscriptionID: 'P-1WC18026GF724604DMA7G7YY'});
+              }
+          }
+          else if(carwash.car.car.size == "grande"){
+              if(carwash.washType == "express"){
+                  this.setState({subscriptionID: 'P-78H88161HW124580XMA7GY2Y'});
+              }
+              else if(carwash.washType == "encerado"){
+                  this.setState({subscriptionID: 'P-0837619768863601GMA7HAII'});
+              }
+              else if(carwash.car.car.size == "detallado"){
+                  this.setState({subscriptionID: 'P-5JL52409HR583530TMA7HARI'});
+              }
+              else if(carwash.car.car.size == "interior"){
+                  this.setState({subscriptionID: 'P-2HC30873B3447142AMA7HBAA'});
+              }
+              else if(carwash.car.car.size == "polished"){
+                  this.setState({subscriptionID: 'P-2HC30873B3447142AMA7HBAA'});
+              }
+          }
+      }
+      else if (carwash.subscription == 'weekly-monthly'){
+        console.log(carwash.car.car.size)
+          if(carwash.car.car.size == "chico"){
+              if(carwash.washType == "express"){
+                  this.setState({subscriptionID: 'P-9DY64250UA3995240MA7HCPA'});
+              }
+              else if(carwash.washType == "encerado"){
+                  this.setState({subscriptionID: 'P-0C70389648382604YMA7HDLY'});
+              }
+              else if(carwash.car.car.size == "detallado"){
+                  this.setState({subscriptionID: 'P-88H62329DC604914XMA7HDTQ'});
+              }
+              else if(carwash.car.car.size == "interior"){
+                  this.setState({subscriptionID: 'P-82296547PW041360UMA7HD3Q'});
+              }
+              else if(carwash.car.car.size == "polished"){
+                  this.setState({subscriptionID: 'P-82296547PW041360UMA7HD3Q'});
+              }
+          }
+          else if(carwash.car.car.size == "mediano"){
+              if(carwash.washType == "express"){
+                  this.setState({subscriptionID: 'P-5RD84368FM330691KMA7HEOY'});
+              }
+              else if(carwash.washType == "encerado"){
+                  this.setState({subscriptionID: 'P-2J2175494P676311SMA7HEYQ'});
+              }
+              else if(carwash.car.car.size == "detallado"){
+                  this.setState({subscriptionID: 'P-289428869S1263224MA7HFCA'});
+              }
+              else if(carwash.car.car.size == "interior"){
+                  this.setState({subscriptionID: 'P-86J40718VV940562KMA7HFKI'});
+              }
+              else if(carwash.car.car.size == "polished"){
+                  this.setState({subscriptionID: 'P-86J40718VV940562KMA7HFKI'});
+              }
+          }                
+          else if(carwash.car.car.size == "grande"){
+              console.log(carwash.washType)
+              if(carwash.washType == "express"){
+                console.log('itshould have set')
+                  this.setState({subscriptionID: 'P-2JY02061KY609754SMA7HFZA'});
+              }
+              else if(carwash.washType == "encerado"){
+                  this.setState({subscriptionID: 'P-8GH75558F7790994TMA7HGDY'});
+              }
+              else if(carwash.car.car.size == "detallado"){
+                  this.setState({subscriptionID: 'P-04X91275A0866341HMA7HGNA'});
+              }
+              else if(carwash.car.car.size == "interior"){
+                  this.setState({subscriptionID: 'P-7C517371N0279381FMA7HG4Y'});
+              }
+              else if(carwash.car.car.size == "polished"){
+                  this.setState({subscriptionID: 'P-7C517371N0279381FMA7HG4Y'});
+              }
+          }
+      }
+      console.log('work:' , this.state.subscriptionID)
+  }
+  const updateUserInfo = async () => {
+
+    //Edit Carwash
+    let carwash = this.props.carwash.currentCarwash;
+    carwash.paymentStatus = 'paid';
+    carwash.status = 'pending-approval';
+    carwash.userId = this.props.user.uid;
+    this.props.dispatch({
+      type: ADD_PAYMENT_STATUS_TO_CARWASH,
+      payload: {
+            paymentStatus: 'paid'
+      }
+    });
+
+
+    this.props.carwash.currentCarwash.status = 'pending-approval';
+    this.props.carwash.currentCarwash.userId = this.props.user.uid;
+
+    const carwashId = await createCarwash(this.props.carwash.currentCarwash);
+    const currentCar = carwashId;
+    //submit carwash to washer
+    await this.submitCarwashToServer(carwashId);
+    this.props.dispatch({
+      type: ADD_CARWASH_TO_USER,
+      payload: {
+            carwashId: carwashId.id
+      }
+    });
+
+    currentCar.car.car.carwash = {
+      id: carwashId.id,
+      type: carwashId.washType,
+      subscription: carwashId.subscription,
+      dateString: carwashId.dateString,
+      time: carwashId.time
+    }
+    this.props.dispatch({
+      type: UPDATE_CAR_ON_USER,
+      payload: {
+            car: currentCar.car
+      }
+    });
+    
+    //add that carwash to user
+    let userInfo = this.props.user;
+    userInfo.carwashIds.push(this.state.carwash.id);
+    await updateUser(userInfo, 'carwashIds')
+    
+    //go to the final page
+    this.props.history.push("/dashboard");
+}
     console.log('test3:', this.props.carwash.carwashes.length);
     return (
       <div style={styles.container}>
@@ -228,49 +399,99 @@ class SubmitCarwash extends React.Component {
                       </div>
                   </div>
             </div>
-            <div p style={{  marginTop:  10 *2, marginLeft:  10 *3 }} color='black'>
+            <div style={{width: '100%', textAlign: 'center', marginTop: 30}}>
                  Mèthodo de Pago
-               </div>
+            </div>
+            <div style={{width: '100%', textAlign: 'center'}}>
+            <Button 
+            style={{backgroundColor: 'black', color: 'white', marginTop: 30, textAlign: 'center'}}
+            onClick={() => getInfo()}>
+                Continuar
+            </Button>
+            </div>
             <div style={{alignItems: 'center'}}>
-            {!this.props.carwash.currentCarwash.cash && 
-              <div>
-                <div style={styles.cardblock2}>
-                  <div className="row">
-                    <div>
-                      <img
-                                src={{uri: 'https://firebasestorage.googleapis.com/v0/b/nea-app-b1e8f.appspot.com/o/app-assets%2Fcard.png?alt=media&token=641187b6-00b3-4998-8a6e-fe21921b838c'}}
-                                style={{height: 50, width: 70, marginLeft: 20}}
-                              />
-                    </div>
-                    <div style={{marginLeft: 20}}>
-                        <div p>Tarjeta </div>
-                        <div>**** **** **** {this.props.user.paymentMethod.card.last4}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            }
-              <Button
-                        shadowless
-                        style={{backgroundColor: 'black', width:  10 * 18, marginTop: 50}}
-                          onClick={() =>  this.makePayment()}
-                        >
-                          <div style={{color:'white', fontWeight: 'bold'}}
-                          >
-                            Enviar
-                          </div>
-                        </Button>
-                        {/* <Button
-                              onClick={() => this.props.navigation.dispatch(CommonActions.reset({
-                                index: 1,
-                                routes: [
-                                  { name: 'Home' },
-                                ],
-                              })
-                              )}
-                            >
-                                <div>Inicio</div>
-                            </Button> */}
+            
+
+          {
+            this.state.gotInfo &&
+            <div>
+
+{(this.props.carwash.currentCarwash.subscription == "one-time") && 
+            <div style={{marginTop: 100}}>
+                    <PayPalButton
+                        createOrder={(data, actions) => {
+                        return actions.order.create({
+                            purchase_units: [{
+                            amount: {
+                                currency_code: "MXN",
+                                value: this.props.carwash.currentCarwash.price
+                                }
+                            }],
+                            // application_context: {
+                            //   shipping_preference: "NO_SHIPPING" // default is "GET_FROM_FILE"
+                            // }
+                        });
+                        }}
+                        onApprove={(data, actions) => {
+                            // Capture the funds from the transaction
+                            return actions.order.capture().then(function(details) {
+                              // Show a success message to your buyer
+                              alert("Gracias por tú pago " + details.payer.name.given_name);
+                              updateUserInfo();
+                              // OPTIONAL: Call your server to save the transaction
+                              return fetch("/paypal-transaction-complete", {
+                                method: "post",
+                                body: JSON.stringify({
+                                  orderID: data.orderID
+                                })
+                              });
+                            });
+                        }}
+                        options={{
+                            currency: "MXN",
+                            clientId: "ASjPTH_16m2iRLSfm3HHSWSwWTlbRKAiSkVvkghYCEXz8yVcxLHQl47NUZWXHMOdoZ2kq9EUkSGSGIeA"
+                        }}
+                    />
+            </div>
+        }
+
+        {(this.props.carwash.currentCarwash.subscription != "one-time") && 
+            <div style={{marginTop: 100}}>
+                <div> hey </div>
+                <PayPalButton
+                        createSubscription={(data, actions) => {
+                        return actions.subscription.create({
+                            plan_id: this.state.subscriptionID
+                        });
+                        }}
+                        onApprove={(data, actions) => {
+                        // Capture the funds from the transaction
+                        return actions.subscription.get().then(function(details) {
+                            // Show a success message to your buyer
+                            alert("Gracias por tu pago");
+                            updateUserInfo();
+                            // OPTIONAL: Call your server to save the subscription
+                            return fetch("/paypal-subscription-complete", {
+                            method: "post",
+                            body: JSON.stringify({
+                                orderID: data.orderID,
+                                subscriptionID: data.subscriptionID
+                            })
+                            });
+                        });
+                        }}
+                        options={{
+                            vault: true,
+                            currency: "MXN",
+                            clientId: "ASjPTH_16m2iRLSfm3HHSWSwWTlbRKAiSkVvkghYCEXz8yVcxLHQl47NUZWXHMOdoZ2kq9EUkSGSGIeA"
+                        }}
+                    /> 
+            </div>
+        }
+
+            </div>
+          }
+
             </div>
             </div>
             </div>

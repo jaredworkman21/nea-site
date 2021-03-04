@@ -5,7 +5,11 @@ import {Link, withRouter} from 'react-router-dom';
 import axios from 'axios';
 import {REMOVE_CAR, ADD_CARWASH_TO_USER,UPDATE_CAR_ON_USER,REMOVE_CARWASH_FROM_WASHER, ADD_CARWASH_TO_WASHER, LOAD_CHAT} from '../actions/types'
 import {updateUser, createCarwash, updateWasher, createChat, getChatDocument, updateCarwash, getWasherDocument, getCarwashDocument} from '../services/firebaseServices';
-
+import lighter from '../assets/imgs/lighter_background_wet.png'
+import filler from '../assets/imgs/filler.png';
+import check from '../assets/imgs/check.png';
+import schedule from '../assets/imgs/schedule.png';
+import trash from '../assets/imgs/trash.png';
 
 class CarDetails extends React.Component {
 
@@ -14,7 +18,7 @@ class CarDetails extends React.Component {
   }
 
   acceptOffer = async () =>  {
-    this.props.navigation.navigate('Agenda', {screen: 'WashType'});
+    this.props.history.push("/wash-type");
   }
   deleteCar = async(car) => {
 
@@ -28,7 +32,7 @@ class CarDetails extends React.Component {
           }
         });
         await updateUser(this.props.user, 'cars');
-        this.props.history.push("/home");
+        this.props.history.push("/dashboard");
 
         this.setState({loading: false});
       
@@ -37,23 +41,25 @@ class CarDetails extends React.Component {
 
   render() {
     return (
-      <div style={styles.container}>
-        {/* <img src={{uri: 'https://firebasestorage.googleapis.com/v0/b/nea-app-b1e8f.appspot.com/o/app-assets%2Flighter_background_wet.png?alt=media&token=e129172c-0b32-4f31-bcf3-6f7b2158bd9b'}} style={styles.image} />  */}
-            <div style={{alignItems: 'center'}}>
-              <div style={styles.cardblock} >
+      <div  style={{textAlign: 'center'}}>
+      <div style={{ backgroundImage: `url(${lighter})`, paddingTop: 100}} className="new-banner">
+        <div  style={{textAlign: 'center'}}>
+          <div style={styles.registerContainer} className="register-container">
+            <div  space="between">
+              <div  >
                     <div>
                         {(this.props.carwash.currentCarwash.car.car.carUrl == '' || this.props.carwash.currentCarwash.car.car.carUrl == null) && 
                               <div>
                                   <img 
                                     style={{height:   10 * 10, width:   10 * 20,  borderTopLeftRadius: 10, borderTopRightRadius: 10}}
-                                    src={require('../assets/imgs/filler.png')}                                  />
+                                    src={filler}                                  />
                               </div>
                           }
                           {(this.props.carwash.currentCarwash.car.car.carUrl != '' && this.props.carwash.currentCarwash.car.car.carUrl != null) && 
                               <div>
                                   <img
                                     style={{height:   10 * 10, width:   10 * 20,  borderTopLeftRadius: 10, borderTopRightRadius: 10}}
-                                    src={{uri: this.props.carwash.currentCarwash.car.car.carUrl}}
+                                    src={this.props.carwash.currentCarwash.car.car.carUrl}
                                   />
                               </div>
                           }
@@ -70,7 +76,7 @@ class CarDetails extends React.Component {
 
                           {(Object.keys(this.props.carwash.currentCarwash.car.car.carwash).length > 0)  && <div >
                                 <img
-                                src={{uri: 'https://firebasestorage.googleapis.com/v0/b/nea-app-b1e8f.appspot.com/o/app-assets%2Fcheck.png?alt=media&token=2bcf402a-0cd8-412b-9ce7-05ea16ff0620'}}
+                                src={check}
                                 style={{height: 50, width: 50}}
                               />
                               {(this.props.carwash.currentCarwash.car.car.carwash.subscription == 'weekly-yearly') &&<div size={12} color='black'> Lavado Semanal </div>}    
@@ -90,8 +96,6 @@ class CarDetails extends React.Component {
  
                     </div>
                     
-            </div>
-            </div>
             <div style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row'}}>
               <Button
                 onClick={() =>  this.acceptOffer()}
@@ -100,8 +104,8 @@ class CarDetails extends React.Component {
                             <div className="row">
                             <div>
                                 <img
-                                        src={{uri: 'https://firebasestorage.googleapis.com/v0/b/nea-app-b1e8f.appspot.com/o/app-assets%2Fschedule.png?alt=media&token=3d101683-b9f1-458e-86bb-7c3f1488426d'}}
-                                        style={{height: 40, width: 40, marginLeft: 30}}
+                                        src={schedule}
+                                        style={{height: 20, width: 20, marginLeft: 30}}
                                         />
                             </div>
                             <div style={{marginLeft: 20, justifyContent: 'center'}}>
@@ -122,8 +126,8 @@ class CarDetails extends React.Component {
                             <div className="row">
                             <div>
                                 <img
-                                src={{uri: 'https://firebasestorage.googleapis.com/v0/b/nea-app-b1e8f.appspot.com/o/app-assets%2Ftrash.png?alt=media&token=b5f09782-0eab-4f7e-942e-f5af5474e10c'}}
-                                style={{height: 40, width: 40, marginLeft: 30}}
+                                src={trash}
+                                style={{height: 20, width: 20, marginLeft: 30}}
                                         />
                             </div>
                             <div style={{marginLeft: 20, justifyContent: 'center'}}>
@@ -133,6 +137,11 @@ class CarDetails extends React.Component {
                         </div>
                     </Button>
             </div>
+       </div>
+       </div>
+       </div>
+       </div>
+       </div>
        </div>
     );
   }
@@ -185,6 +194,15 @@ width:  100,
       shadowRadius: 0,
       shadowOpacity: 0
     },
+    registerContainer: {
+      backgroundColor: "white",
+      borderRadius: 10,
+      shadowColor: "black",
+      shadowRadius: 8,
+      shadowOpacity: 0.1,
+      elevation: 1,
+      overflow: "hidden"
+    },
     pro: {
       backgroundColor: 'black',
       paddingHorizontal: 8,
@@ -194,8 +212,8 @@ width:  100,
       marginTop: 15
     },
     cardblock4: {
-      width: 10 * 15,
-      marginTop: 20,
+      width: 200,
+      paddingTop: 10,
       height:  10 * 4,
       backgroundColor: "#286AEC",
       borderRadius: 10,
@@ -207,7 +225,7 @@ width:  100,
       elevation: 1,
     },
     cardblock5: {
-      width: 10 * 15,
+      width: 200,
       marginTop: 20,
       height:  10 * 4,
       backgroundColor: "#FFFFFF",

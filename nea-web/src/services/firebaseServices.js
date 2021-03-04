@@ -529,6 +529,13 @@ export const updateCarwash = async (carwash, updateType) => {
         closestWashers: carwash.closestWashers
       });
     }
+    else if(updateType== 'payment'){
+      await carwashRef.update({
+        status: carwash.status,
+        userId: carwash.userId,
+        paymentStatus: carwash.paymentStatus,
+      });
+    }
   } catch (error) {
     console.error("Error updating carwash document", error);
   }

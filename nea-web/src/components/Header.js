@@ -14,14 +14,14 @@ class Header extends React.Component  {
                 <div className="col-3 col-md-3" >
                     <TemporaryDrawer/>
                 </div>
-                <div className="col-6 col-md-6" style={{textAlign: 'center'}}>
+                <div className="col-6 col-md-6" style={{textAlign: 'center'}} onClick={() => this.props.history.push("/dashboard")}>
                     <img 
                         style={{  height: 50 }}
                         src={logo}
                     />
                 </div>
                 <div className="col-3 col-md-3" style={{textAlign: 'right'}}>
-                    <Button
+                    {/* <Button
                         style={{alignSelf: 'stretch', height: 30}}
                         onClick={() => this.props.history.push("/notifications")}
                         >
@@ -31,7 +31,7 @@ class Header extends React.Component  {
                             src={notifications}                    />
                             </div>
                         
-                    </Button>
+                    </Button> */}
                 </div>
             </div>
         );

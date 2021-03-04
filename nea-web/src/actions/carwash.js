@@ -8,13 +8,21 @@ import {LOAD_CARWASH,
       ADD_CARWASH,
       UPDATE_CARWASH_STATUS,
       SET_CASH,
-      ADD_PRICETEMP
+      ADD_PRICETEMP,
+      ADD_LAST_WASH
     } from './types';
 
 
 export const loadCarwash = (payload) => (
     {
         type: LOAD_CARWASH,
+        payload: payload,
+    }
+)
+
+export const addLastWash = (payload) => (
+    {
+        type: ADD_LAST_WASH,
         payload: payload,
     }
 )
